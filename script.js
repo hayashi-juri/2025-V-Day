@@ -1,67 +1,78 @@
-const envelope = document.getElementById("envelope");
-let escapeCount = 0;
-let maxEscapes = Math.floor(Math.random() * 6) + 5; // 5〜10回のランダム
+document.addEventListener("DOMContentLoaded", () => {
+    const wrapper = document.querySelector(".wrapper");
+    const lidClosed = document.querySelector(".lid.closed");
+    const lidOpen = document.querySelector(".lid.open");
+    const heartElement = document.querySelector(".heart");
+    let isOpened = false;
 
-const emojis = ["❤️", "🍫", "✨", "⭐", "💖"];
-let envelopeRect = envelope.getBoundingClientRect(); // 封筒の初期位置を取得
+    const createHearts = () => {
+        for (let i = 0; i < 100; i++) { // ハートの数を設定
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerText = "❤";
+            document.body.appendChild(heart);
 
-// 封筒にマウスまたはタッチイベントを設定
-function addEscapeEvent() {
-    envelope.addEventListener("mouseover", handleEscape);
-    envelope.addEventListener("touchstart", handleEscape);
-}
+            const size = Math.random() * 20 + 10; // サイズをランダム化
+            heart.style.fontSize = `${size}px`;
 
-function handleEscape() {
-    if (escapeCount < maxEscapes) {
-        // 封筒をランダムな位置に移動
-        const container = envelope.parentElement;
-        const containerRect = container.getBoundingClientRect();
-        const envelopeRect = envelope.getBoundingClientRect();
+            // 初期位置を封筒の中央付近に設定
+            const { left, top, width, height } = wrapper.getBoundingClientRect();
+            heart.style.left = `${left + width / 2}px`;
+            heart.style.top = `${top + height / 2}px`;
 
-        const newLeft = Math.random() * (containerRect.width - envelopeRect.width);
-        const newTop = Math.random() * (containerRect.height - envelopeRect.height);
+            // ランダムな移動先を設定
+            const xMove = (Math.random() - 0.5) * 400;
+            const yMove = -(Math.random() * 300 + 200);
 
-        envelope.style.left = `${newLeft}px`;
-        envelope.style.top = `${newTop}px`;
-        escapeCount++;
-    } 
-    
-    else {
-        // 封筒を開けて絵文字を表示
-        envelope.classList.add("ready");
-        envelope.removeEventListener("mouseover", handleEscape); // 移動停止
-        envelope.addEventListener("click", openEnvelope); // クリックで開ける
+            heart.animate([
+                { transform: `translate(0, 0)` },
+                { transform: `translate(${xMove}px, ${yMove}px)`, opacity: 0 }
+            ], {
+                duration: 2000 + Math.random() * 1000,
+                easing: "ease-out",
+                iterations: 1,
+                fill: "forwards"
+            });
 
-    }
-}
+            // アニメーション終了後に削除
+            setTimeout(() => heart.remove(), 3000);
+        }
+    };
 
-function openEnvelope() {
-    envelope.classList.remove("closed");
-    envelope.classList.add("open");
-    // releaseEmojis();
-}
+    const openEnvelope = () => {
+        // 蓋を開く動作
+        lidClosed.style.transform = "rotateX(90deg)";
+        lidOpen.style.transform = "rotateX(180deg)";
 
-/*
-function releaseEmojis() {
-    const container = document.querySelector(".container");
-    const centerX = envelopeRect.left + envelopeRect.width / 2;
-    const centerY = envelopeRect.top + envelopeRect.height / 2;
+        // 封筒についているハートを非表示にする
+        heartElement.style.opacity = "0";
 
-    for (let i = 0; i < 30; i++) {
-        const emoji = document.createElement("div");
-        emoji.classList.add("emoji");
-        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        emoji.style.left = `${centerX}px`;
-        emoji.style.top = `${centerY}px`;
-        emoji.style.animationDelay = `${Math.random() * 2}s`;
-        container.appendChild(emoji);
+        // ハートを生成する前に遅延を追加
+        setTimeout(() => {
+            createHearts();
+        }, 500); // 蓋が開ききるタイミングに合わせて遅延を調整
+    };
 
-        // アニメーションが終わったら削除
-        emoji.addEventListener("animationend", () => {
-            emoji.remove();
-        });
-    }
-}*/
+    const closeEnvelope = () => {
+        // 蓋を閉じる動作
+        lidClosed.style.transform = "rotateX(0deg)";
+        lidOpen.style.transform = "rotateX(90deg)";
 
-// イベントを追加
-addEscapeEvent();
+        // 封筒についているハートを再表示
+        heartElement.style.opacity = "1";
+    };
+
+    const toggleEnvelope = () => {
+        if (!isOpened) {
+            isOpened = true;
+            openEnvelope();
+        } else {
+            isOpened = false;
+            closeEnvelope();
+        }
+    };
+
+
+    // 封筒をクリックすると開く
+    wrapper.addEventListener("click", toggleEnvelope);
+});

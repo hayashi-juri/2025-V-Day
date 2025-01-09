@@ -1,116 +1,97 @@
-body {
-    font-family: Arial, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    height: 100vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f8ff;
-    overflow: hidden; /* 封筒が画面外に飛び出ないように */
-}
-
-.container {
-    position: relative;
-    width: 100%;
+    font-family: sans-serif;
+    background-color: #F5F3F3;
+    overflow: hidden;
+  }
+  
+  .wrapper {
+    height: 150px;
+    width: 220px;
+    background-color: #E4D5CC;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-family: sans-serif;
+    z-index: 0;
+    transition: top 0.3s ease, left 0.3s ease;
+  }
+  
+  .lid {
+    position: absolute;
     height: 100%;
-}
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-right: 110px solid transparent;
+    border-bottom: 100px solid transparent;
+    border-left: 110px solid transparent;
+    transform-origin: top;
+    transition: transform 0.5s linear;
+  }
 
-.envelope {
-    width: 120px;
-    height: 80px;
-    background-color: #fffff9;
-    border: 2px solid #d4d4d4;
+  .heart {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease; /* クリックしたとき */
-}
-
-.envelope.closed::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 60px solid transparent;
-    border-right: 60px solid transparent;
-    border-bottom: 20px solid #d4d4d4;
-}
-
-.envelope.open::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 60px solid transparent;
-    border-right: 60px solid transparent;
-    border-bottom: 20px solid #fffff9;
-    animation: openFlap 0.5s forwards;
-}
-
-
-.heart {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 30px;
-    color: #ff5c5c;
+    font-size: 50px;
+    color: #CA3C3C;
+    z-index: 5;
+    opacity: 1;
     transition: opacity 0.5s ease;
 }
-
-.envelope.open .heart {
-    opacity: 0; /* 開いたときにハートを消す */
-}
-
-@keyframes openFlap {
-    0% {
-        transform: translateX(-50%);
-    }
-    100% {
-        transform: translateX(-50%) rotateX(180deg);
-    }
-}
-
-/*
-.hidden {
-    display: none;
-}
-
-.emoji {
+  
+  /* Lid when closed */
+  .lid.closed {
+    border-top: 75px solid #E4D5CC;
+    transform: rotateX(0deg);
+    z-index: 3;
+    transition-delay: 0.75s;
+  }
+  
+  /* Lid when opened */
+  .lid.open {
+    border-top: 75px solid #E4D5CC;
+    transform: rotateX(90deg);
+    z-index: 1;
+    transition-delay: 0.5s;
+  }
+  
+  .envelope {
     position: absolute;
-    font-size: 30px;
-    animation: floatUp 2s ease-in-out, fadeOut 2s ease-in-out;
-    -webkit-animation: floatUp 2s ease-in-out, fadeOut 2s ease-in-out;
-}
-
-@keyframes floatUp {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-200px); }
-}
-
-@-webkit-keyframes floatUp {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-200px); }
-}
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-
-@-webkit-keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-}*/
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-top: 75px solid transparent;
+    border-right: 110px solid #9B6F5A;
+    border-bottom: 75px solid #9B6F5A;
+    border-left: 110px solid #664743;
+    z-index: 3;
+  }
+  
+  
+  /*.wrapper:hover .lid.closed {
+      transform: rotateX(90deg);
+      transition-delay: 0s;
+  }
+  
+  .wrapper:hover .lid.open {
+      transform: rotateX(180deg);
+      transition-delay: 0.5s;
+  }*/
+  
+  
+  
