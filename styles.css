@@ -3,7 +3,13 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
+.lobster-regular {
+  font-family: "Lobster", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
   body {
     height: 100vh;
     width: 100%;
@@ -18,14 +24,16 @@
   .wrapper {
     height: 150px;
     width: 220px;
-    background-color: #E4D5CC;
+    background-color: #dcc6b9;;
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     font-family: sans-serif;
     z-index: 0;
-    transition: top 0.3s ease, left 0.3s ease;
+    transition: transform 0.8s, top 0.8s ease, left 0.8s ease;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   }
   
   .lid {
@@ -38,7 +46,9 @@
     border-bottom: 100px solid transparent;
     border-left: 110px solid transparent;
     transform-origin: top;
-    transition: transform 0.5s linear;
+    border-radius: 5px;
+    transition: transform 0.8s linear, opacity 0.8s ease;
+    border-top: 75px solid #dcc6b9;
   }
 
   .heart {
@@ -48,25 +58,23 @@
     transform: translate(-50%, -50%);
     font-size: 50px;
     color: #CA3C3C;
-    z-index: 5;
+    z-index: 4;
     opacity: 1;
     transition: opacity 0.5s ease;
 }
   
   /* Lid when closed */
   .lid.closed {
-    border-top: 75px solid #E4D5CC;
     transform: rotateX(0deg);
-    z-index: 3;
-    transition-delay: 0.75s;
+    z-index: 2;
+    transition: transform 0.8s ease, z-index 0s linear 0.8s;
   }
   
   /* Lid when opened */
   .lid.open {
-    border-top: 75px solid #E4D5CC;
     transform: rotateX(90deg);
     z-index: 1;
-    transition-delay: 0.5s;
+    transition: transform 0.8s ease, z-index 0s linear 0.8s;
   }
   
   .envelope {
@@ -76,22 +84,40 @@
     top: 0;
     left: 0;
     border-top: 75px solid transparent;
-    border-right: 110px solid #9B6F5A;
-    border-bottom: 75px solid #9B6F5A;
-    border-left: 110px solid #664743;
+    border-right: 110px solid #E4D5CC;
+    border-bottom: 75px solid #E4D5CC;
+    border-left: 110px solid #E4D5CC;
+    border-radius: 5px;
     z-index: 3;
   }
-  
-  
-  /*.wrapper:hover .lid.closed {
-      transform: rotateX(90deg);
-      transition-delay: 0s;
-  }
-  
-  .wrapper:hover .lid.open {
-      transform: rotateX(180deg);
-      transition-delay: 0.5s;
-  }*/
+
+  .letter {
+    position: absolute;
+    bottom: 0; /* 初期位置: 封筒の中 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px; /* 手紙の幅 */
+    height: 200px; /* 手紙の高さ */
+    background-color: #FFFFFF; /* 手紙の背景色 */
+    border-radius: 10px; /* 手紙の角を丸く */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影 */
+    opacity: 0; /* 最初は見えない */
+    transition: all 1.5s ease; /* アニメーションを追加 */
+    z-index: 5; /* 封筒より上に表示 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 10px;
+}
+
+.wrapper.open .letter {
+    bottom: 150px; /* 手紙がスライドして出る位置 */
+    opacity: 1; /* 見えるようにする */
+}
+
   
   
   
