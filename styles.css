@@ -1,14 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Markazi+Text:wght@400..700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-
-.lobster-regular {
-  font-family: "Lobster", serif;
-  font-weight: 400;
-  font-style: normal;
-}
 
   body {
     height: 100vh;
@@ -111,6 +107,26 @@
     font-family: sans-serif;
     text-align: center;
     padding: 10px;
+    flex-direction: column; 
+}
+
+.lobster-regular {
+  font-family: "Lobster", serif;
+  font-weight: 300;
+  /*font-style: normal;*/
+  margin-bottom: 10px; /* 下に余白を追加 */
+  font-size: 20px; /* 必要に応じてサイズ調整 */
+  text-align: center;
+}
+
+.markazi-text {
+font-family: "Markazi Text", serif;
+/*font-optical-sizing: auto;*/
+font-weight: 400;
+font-style: normal;
+margin: 0; /* 余白をリセット */
+font-size: 24px; /* 必要に応じてサイズ調整 */
+text-align: center;
 }
 
 .wrapper.open .letter {
@@ -118,6 +134,10 @@
     opacity: 1; /* 見えるようにする */
 }
 
-  
-  
+ /* 手紙が封筒の前に出てくる
+ 複数のカードが重なって出てくる
+ 1枚目をタップすると、横にスライドしつつ最後尾へいき、
+ 2枚目が表示される*/
+
+ /* 背景を可愛くする　*/
   
