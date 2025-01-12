@@ -4,9 +4,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
 
-  body {
+body {
     height: 100vh;
     width: 100%;
     display: flex;
@@ -15,24 +15,52 @@
     font-family: sans-serif;
     background-color: #F5F3F3;
     overflow: hidden;
-  }
-  
-  .wrapper {
+}
+
+.ask {
+    position: absolute;
+    top: 20%;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #CA3C3C;
+    color: white;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #A82E2E;
+    transform: scale(1.1);
+}
+
+.envelope-wrapper {
     height: 150px;
     width: 220px;
-    background-color: #dcc6b9;;
+    background-color: #dcc6b9;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* 初期状態では非表示 */
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    font-family: sans-serif;
-    z-index: 0;
-    transition: transform 0.8s, top 0.8s ease, left 0.8s ease;
+    z-index: 10;
+    transition: transform 0.8s;
     border-radius: 5px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .lid {
+}
+
+.envelope-wrapper.show {
+    transform: translate(-50%, -50%) scale(1); /* 表示時に拡大 */
+}
+
+.lid {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -43,11 +71,33 @@
     border-left: 110px solid transparent;
     transform-origin: top;
     border-radius: 5px;
-    transition: transform 0.8s linear, opacity 0.8s ease;
     border-top: 75px solid #dcc6b9;
-  }
+    transition: transform 0.8s linear, opacity 0.8s ease;
+}
 
-  .heart {
+.lid.closed {
+    transform: rotateX(0deg);
+    z-index: 2;
+}
+
+.lid.open {
+    transform: rotateX(90deg);
+    z-index: 1;
+}
+
+.envelope {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-top: 75px solid transparent;
+    border-right: 110px solid #E4D5CC;
+    border-bottom: 75px solid #E4D5CC;
+    border-left: 110px solid #E4D5CC;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.heart {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -58,86 +108,47 @@
     opacity: 1;
     transition: opacity 0.5s ease;
 }
-  
-  /* Lid when closed */
-  .lid.closed {
-    transform: rotateX(0deg);
-    z-index: 2;
-    transition: transform 0.8s ease, z-index 0s linear 0.8s;
-  }
-  
-  /* Lid when opened */
-  .lid.open {
-    transform: rotateX(90deg);
-    z-index: 1;
-    transition: transform 0.8s ease, z-index 0s linear 0.8s;
-  }
-  
-  .envelope {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    border-top: 75px solid transparent;
-    border-right: 110px solid #E4D5CC;
-    border-bottom: 75px solid #E4D5CC;
-    border-left: 110px solid #E4D5CC;
-    border-radius: 5px;
-    z-index: 3;
-  }
 
-  .letter {
+.letter {
     position: absolute;
-    bottom: 0; /* 初期位置: 封筒の中 */
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 180px; /* 手紙の幅 */
-    height: 200px; /* 手紙の高さ */
-    background-color: #FFFFFF; /* 手紙の背景色 */
-    border-radius: 10px; /* 手紙の角を丸く */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影 */
-    opacity: 0; /* 最初は見えない */
-    transition: all 1.5s ease; /* アニメーションを追加 */
-    z-index: 5; /* 封筒より上に表示 */
+    width: 180px;
+    height: 200px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 1.5s ease;
+    z-index: 5;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
-    font-family: sans-serif;
     text-align: center;
-    padding: 10px;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 .lobster-regular {
-  font-family: "Lobster", serif;
-  font-weight: 300;
-  /*font-style: normal;*/
-  margin-bottom: 10px; /* 下に余白を追加 */
-  font-size: 20px; /* 必要に応じてサイズ調整 */
+    font-family: "Lobster", serif;
+    font-weight: 300;
+    /*font-style: normal;*/
+    margin-bottom: 10px; /* 下に余白を追加 */
+    font-size: 20px; /* 必要に応じてサイズ調整 */
+    text-align: center;
+}
+  
+.markazi-text {
+  font-family: "Markazi Text", serif;
+  /*font-optical-sizing: auto;*/
+  font-weight: 400;
+  font-style: normal;
+  margin: 0; /* 余白をリセット */
+  font-size: 24px; /* 必要に応じてサイズ調整 */
   text-align: center;
 }
 
-.markazi-text {
-font-family: "Markazi Text", serif;
-/*font-optical-sizing: auto;*/
-font-weight: 400;
-font-style: normal;
-margin: 0; /* 余白をリセット */
-font-size: 24px; /* 必要に応じてサイズ調整 */
-text-align: center;
+.envelope-wrapper.open .letter {
+    bottom: 150px;
+    opacity: 1;
 }
-
-.wrapper.open .letter {
-    bottom: 150px; /* 手紙がスライドして出る位置 */
-    opacity: 1; /* 見えるようにする */
-}
-
- /* 手紙が封筒の前に出てくる
- 複数のカードが重なって出てくる
- 1枚目をタップすると、横にスライドしつつ最後尾へいき、
- 2枚目が表示される*/
-
- /* 背景を可愛くする　*/
-  
