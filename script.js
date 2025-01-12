@@ -1,32 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const yesButton = document.getElementById("yesButton");
-    const noButton = document.getElementById("noButton");
+    const yayButton = document.querySelector(".yay");
+    const yeppiButton = document.querySelector(".yeppi");
+    const image1 = document.querySelector(".image-1")
+    const image2 = document.querySelector(".image-2")
     const envelopeWrapper = document.querySelector(".envelope-wrapper");
-    //const lidClosed = document.querySelector(".lid.closed");
-    //const lidOpen = document.querySelector(".lid.open");
-    const lid = document.querySelector(".lid");
     const heartElement = document.querySelector(".heart");
+    const chocolateWrapper = document.querySelector(".chocolate-wrapper");
     let isOpened = false;
 
-    // Yesボタンがクリックされたときに封筒を表示
+    // Yayボタンがクリックされたときに封筒を表示
     const showEnvelope = () => {
-        //yesButton.style.display = "none"; // Yesボタン非表示
-        noButton.style.display = "none"; // Noボタン非表示
+        image1.style.display = "none";
+        yayButton.style.display = "none";
+        yeppiButton.style.display = "none"; // 非表示
         envelopeWrapper.classList.add("show");
 
         // 封筒が表示された後、クリックで開閉可能に
         setTimeout(() => {
             envelopeWrapper.addEventListener("click", toggleEnvelope);
-        }, 1000); // アニメーション完了後にイベントを追加
-    };
-
-    // Noボタンがホバーされたときに移動する効果
-    const moveButton = () => {
-        const randomX = Math.random() * (window.innerWidth - noButton.offsetWidth);
-        const randomY = Math.random() * (window.innerHeight - noButton.offsetHeight);
-        noButton.style.position = "absolute";
-        noButton.style.left = `${Math.max(0, randomX)}px`;
-        noButton.style.top = `${Math.max(0, randomY)}px`;
+        }, 500); // アニメーション完了後にイベントを追加
     };
 
     // ハートを生成する関数
@@ -94,10 +86,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    const showChocolate = () => {
+        image1.style.display = "none";
+        yeppiButton.style.display = "none"; // 非表示
+        yayButton.style.display = "none"; // 非表示
+        // イベントを追加
+        chocolateWrapper.classList.add("show");
+    };
+
     // 封筒をクリックすると開閉
     envelopeWrapper.addEventListener("click", toggleEnvelope);
 
     // ボタンのイベントリスナーを設定
-    yesButton.onclick = showEnvelope;
-    noButton.onmouseover = moveButton;
+    yayButton.onclick = showEnvelope;
+    yeppiButton.onclick = showChocolate;
 });
