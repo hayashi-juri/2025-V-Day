@@ -2,13 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const yesButton = document.getElementById("yesButton");
     const noButton = document.getElementById("noButton");
     const envelopeWrapper = document.querySelector(".envelope-wrapper");
-    const lidClosed = document.querySelector(".lid.closed");
-    const lidOpen = document.querySelector(".lid.open");
+    //const lidClosed = document.querySelector(".lid.closed");
+    //const lidOpen = document.querySelector(".lid.open");
+    const lid = document.querySelector(".lid");
     const heartElement = document.querySelector(".heart");
     let isOpened = false;
 
     // Yesボタンがクリックされたときに封筒を表示
     const showEnvelope = () => {
+        //yesButton.style.display = "none"; // Yesボタン非表示
         noButton.style.display = "none"; // Noボタン非表示
         envelopeWrapper.classList.add("show");
 
@@ -61,8 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 封筒を開く
     const openEnvelope = () => {
-        lidClosed.style.transform = "rotateX(90deg)";
-        lidOpen.style.transform = "rotateX(180deg)";
+        envelopeWrapper.classList.add("open");
         heartElement.style.opacity = "0";
 
         setTimeout(() => {
@@ -72,11 +73,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 封筒を閉じる
     const closeEnvelope = () => {
-        lidClosed.style.transform = "rotateX(0deg)";
-        lidOpen.style.transform = "rotateX(90deg)";
+        envelopeWrapper.classList.remove("open");
+        heartElement.style.opacity = "1";
 
         setTimeout(() => {
             heartElement.style.opacity = "1";
+            letter.style.opacity = "0"; // 手紙を非表示
+            letter.style.bottom = "0";
         }, 1000);
     };
 
@@ -85,17 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isOpened) {
             isOpened = true;
             openEnvelope();
-            setTimeout(() => {
-                envelopeWrapper.classList.add("open");
-            }, 1200);
         } else {
             isOpened = false;
             closeEnvelope();
-            setTimeout(() => {
-                envelopeWrapper.classList.remove("open");
-            }, 1200);
         }
     };
+
+    // 封筒をクリックすると開閉
+    envelopeWrapper.addEventListener("click", toggleEnvelope);
 
     // ボタンのイベントリスナーを設定
     yesButton.onclick = showEnvelope;
