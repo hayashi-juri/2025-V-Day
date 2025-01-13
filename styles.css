@@ -44,18 +44,9 @@ body {
     flex-direction: column;
 }
 
-.image-1 {
-    display: block;
-    margin: 0 auto; /* 中央揃え */
-    width: 175px; /* 必要に応じて変更 */
-    height: auto; /* アスペクト比を維持 */
-    margin-bottom: 15px;
-}
-
-
 .btn {
     padding: 10px 20px;
-    margin: 10px;
+    margin: 20px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -63,6 +54,7 @@ body {
     background-color: #CA3C3C;
     color: white;
     transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .btn:hover {
@@ -142,7 +134,7 @@ body {
     transform: translate(-50%, -50%) scale(1);
 }
 
-.back-button {
+.back-button-envelope {
     position: relative;
     top: 80px;
     left: 50px;
@@ -150,9 +142,13 @@ body {
     z-index: 5;
 }
 
-.back-button:hover {
+.back-button-envelope:hover {
     background-color: #A82E2E;
     transform: scale(1.1);
+}
+
+.ask-wrapper.show {
+    transform: translate(-50%, -50%) scale(1);
 }
 
 
@@ -246,16 +242,27 @@ body {
     position: absolute;
     top: 50%; /* 垂直方向の中央 */
     left: 50%; /* 水平方向の中央 */
-    height: 150px;
-    width: 220px;
+    height: auto;
+    width: auto;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     border-radius: 5px;
     transform: translate(-50%, -50%) scale(0);
     z-index: 1;
     transition: transform 0.8s;
     flex-direction: column;
+}
+
+.chocolate {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.8s ease;
 }
 
 .gif-button {
@@ -264,14 +271,6 @@ body {
     cursor: pointer;
     border-radius: 10px; /* 必要なら角を丸める */
     transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.image-2 {
-    display: block;
-    margin: 0 auto; /* 中央揃え */
-    width: 175px; /* 必要に応じて変更 */
-    height: auto; /* アスペクト比を維持 */
-    margin-bottom: 15px;
 }
 
 .text-2 {
@@ -286,6 +285,7 @@ body {
 .back-button-chocolate {
     position: relative;
     top: 30px;
+    left: 50px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     z-index: 5;
 }
@@ -294,3 +294,88 @@ body {
     background-color: #A82E2E;
     transform: scale(1.1); /* ホバー時に少し拡大 */
 }
+
+.ramen-wrapper {
+    position: absolute;
+    top: 50%; /* 垂直方向の中央 */
+    left: 50%; /* 水平方向の中央 */
+    height: 150px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 5px;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 1;
+    transition: transform 0.8s;
+    flex-direction: column;
+}
+
+.ramen-wrapper.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.back-button-ramen {
+    position: relative;
+    top: 30px;
+    left: 50px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+}
+
+.back-button-ramen:hover {
+    background-color: #A82E2E;
+    transform: scale(1.1); /* ホバー時に少し拡大 */
+}
+
+
+.gif {
+    display: block;
+    margin: 0 auto; /* 中央揃え */
+    height: auto; /* アスペクト比を維持 */
+}
+
+.image-1 {
+    width: 200px; /* 必要に応じて変更 */
+    margin-bottom: 20px;
+}
+
+.image-2 {
+    width: 175px; /* 必要に応じて変更 */
+    margin-bottom: 15px;
+}
+
+.image-3 {
+    width: 175px;
+    margin-bottom: 15px;
+}
+
+.confetti {
+    position: absolute;
+    width: 8px; /* 初期サイズ */
+    height: 8px; /* 初期サイズ */
+    background-color: red; /* 初期色 */
+    border-radius: 50%; /* 丸い形状 */
+    pointer-events: none; /* クリックを無効化 */
+    z-index: 10; /* 他の要素よりも前に配置 */
+}
+
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* クリックを無効化 */
+    z-index: -1; /* 背景に配置 */
+    overflow: hidden;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 20px; /* デフォルトサイズ */
+    color: #ff69b4; /* ピンク色 */
+    opacity: 0.8; /* 半透明 */
+    animation: floatUp 
+}
+
