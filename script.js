@@ -1,34 +1,71 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const yayButton = document.querySelector(".yay");
-    const yeppiButton = document.querySelector(".yeppi");
-    const image1 = document.querySelector(".image-1");
-    // const image2 = document.querySelector(".image-2");
-    const envelopeWrapper = document.querySelector(".envelope-wrapper");
-    const heartElement = document.querySelector(".heart");
-    const backButtonE = document.querySelector(".back-button-envelope");
-    const chocolateWrapper = document.querySelector(".chocolate-wrapper");
-    const gifButton = document.querySelector(".gif-button");
-    const backButtonC = document.querySelector(".back-button-chocolate");
-    const ramenWrapper = document.querySelector(".ramen-wrapper");
-    const backButtonR = document.querySelector(".back-button-ramen");
-    // const askWrapper = document.querySelector(".ask-wrapper");
-    const heartContainer = document.querySelector(".floating-hearts");
+
+    // 要素の取得
+    const elements = {
+        yayButton: document.querySelector(".yay"),
+        yeppiButton: document.querySelector(".yeppi"),
+        image1: document.querySelector(".image-1"),
+        envelopeWrapper: document.querySelector(".envelope-wrapper"),
+        heartElement: document.querySelector(".heart"),
+        letter: document.querySelector(".letter"),
+        backButtonE: document.querySelector(".back-button-envelope"),
+        chocolateWrapper: document.querySelector(".chocolate-wrapper"),
+        gifButton: document.querySelector(".gif-button"),
+        backButtonC: document.querySelector(".back-button-chocolate"),
+        ramenWrapper: document.querySelector(".ramen-wrapper"),
+        backButtonR: document.querySelector(".back-button-ramen"),
+        heartContainer: document.querySelector(".floating-hearts"),
+    };
+
     let isOpened = false;
 
-    // ページロード時にバックグラウンドでハートを生成
     createFloatingHearts();
 
-    // Yayボタンがクリックされたときに封筒を表示
-    const showEnvelope = () => {
-        image1.style.display = "none";
-        yayButton.style.display = "none";
-        yeppiButton.style.display = "none"; // 非表示
-        envelopeWrapper.classList.add("show");
+    // 要素の表示/非表示を切り替える関数
+    const toggleDisplay = (element, show) => {
+        element.style.display = show ? "inline-block" : "none";
+    };
 
-        // 封筒が表示された後、クリックで開閉可能に
+    // 封筒を開く
+    const openEnvelope = () => {
+        elements.envelopeWrapper.classList.add("open");
+        elements.heartElement.style.opacity = "0";
+
         setTimeout(() => {
-            envelopeWrapper.addEventListener("click", toggleEnvelope);
-        }, 500); // アニメーション完了後にイベントを追加
+            createHearts();
+        }, 1000);
+
+        setTimeout(() => {
+            if (elements.letter) {
+                elements.letter.style.opacity = "1"; // 手紙を表示
+                elements.letter.style.bottom = "150px"; // 手紙を上に移動
+            }
+        }, 1000);
+    };
+
+    // 封筒を閉じる
+    const closeEnvelope = () => {
+        elements.envelopeWrapper.classList.remove("open");
+        elements.heartElement.style.opacity = "1";
+
+        setTimeout(() => {
+            elements.heartElement.style.opacity = "1";
+            elements.letter.style.opacity = "0"; // 手紙を非表示
+            elements.letter.style.bottom = "0";
+        }, 500);
+    };
+
+    // 封筒の開閉を切り替え
+    const toggleEnvelope = () => {
+        isOpened = !isOpened;
+        isOpened ? openEnvelope() : closeEnvelope();
+    };
+
+    // 戻るボタンがクリックされたときの処理
+    const goBack = (wrapperToHide, wrappersToShow = []) => {
+        wrapperToHide.classList.remove("show");
+        wrappersToShow.forEach(wrapper => toggleDisplay(wrapper, true));
+        toggleDisplay(elements.image1, true);
     };
 
     // ハートを生成する関数
@@ -42,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const size = Math.random() * 20 + 10;
             heart.style.fontSize = `${size}px`;
 
-            const { left, top, width, height } = envelopeWrapper.getBoundingClientRect();
+            const { left, top, width, height } = elements.envelopeWrapper.getBoundingClientRect();
             heart.style.left = `${left + width / 2}px`;
             heart.style.top = `${top + height / 2}px`;
 
@@ -63,159 +100,76 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // 封筒を開く
-    const openEnvelope = () => {
-        envelopeWrapper.classList.add("open");
-        heartElement.style.opacity = "0";
-
-        setTimeout(() => {
-            createHearts();
-        }, 1000);
-    };
-
-    // 封筒を閉じる
-    const closeEnvelope = () => {
-        envelopeWrapper.classList.remove("open");
-        heartElement.style.opacity = "1";
-
-        setTimeout(() => {
-            heartElement.style.opacity = "1";
-            letter.style.opacity = "0"; // 手紙を非表示
-            letter.style.bottom = "0";
-        }, 1000);
-    };
-
-    // 封筒の開閉を切り替え
-    const toggleEnvelope = () => {
-        if (!isOpened) {
-            isOpened = true;
-            openEnvelope();
-        } else {
-            isOpened = false;
-            closeEnvelope();
-        }
-    };
-
-    // 戻るボタンがクリックされたときの処理
-    const goBackFromEnvelope = () => {
-        envelopeWrapper.classList.remove("show"); // 封筒を非表示
-        yayButton.style.display = "inline-block"; // Yayボタンを再表示
-        yeppiButton.style.display = "inline-block"; // Yeppiボタンを再表示
-        image1.style.display = "block"; // 猫の画像を再表示
-    };
-
-    // Chocolate wrapper を表示
-    const showChocolate = () => {
-        image1.style.display = "none";
-        yeppiButton.style.display = "none"; // 非表示
-        yayButton.style.display = "none"; // 非表示
-        // イベントを追加
-        chocolateWrapper.classList.add("show");
-    };
-
-    gifButton.addEventListener("click", () => {
-        // alert("You clicked the gift!"); // 必要に応じて他のアクションをここに記述
-        ramenWrapper.classList.add("show");
-        chocolateWrapper.classList.remove("show");
-    });
-
-    const goBackFromChocolate = () => {
-        chocolateWrapper.classList.remove("show"); // Chocolate画面を非表示
-        yayButton.style.display = "inline-block"; // Yayボタンを再表示
-        yeppiButton.style.display = "inline-block"; // Yeppiボタンを再表示
-        image1.style.display = "block"; // 猫の画像を再表示
-    };
-
-    const goBackFromRamen = () => {
-        ramenWrapper.classList.remove("show"); // 封筒を非表示
-        chocolateWrapper.classList.add("show");
-    };
-
-    function createConfetti() {
-        for (let i = 0; i < 200; i++) {
-            const confetti = document.createElement("div");
-            confetti.classList.add("confetti");
-            
-            document.body.appendChild(confetti);
-    
-            // ランダムなサイズと位置を設定
-            const size = Math.random() * 8 + 4; // 4px〜12pxのランダムサイズ
-            const xPosition = Math.random() * window.innerWidth;
-            const yPosition = -50; // 初期位置を画面の上部に設定
-    
-            confetti.style.width = `${size}px`;
-            confetti.style.height = `${size}px`;
-            confetti.style.left = `${xPosition}px`;
-            confetti.style.top = `${yPosition}px`;
-    
-            // ランダムな回転と色
-            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-    
-            // アニメーション
-            confetti.animate(
-                [
-                    { transform: `translateY(0px)` },
-                    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg)` }
-                ],
-                {
-                    duration: Math.random() * 2000 + 2000, // 2〜4秒間のランダムアニメーション
-                    easing: "ease-out",
-                    iterations: 1,
-                    fill: "forwards"
-                }
-            );
-    
-            // 紙吹雪を一定時間後に削除
-            setTimeout(() => confetti.remove(), 4000);
-        }
-    }
-
-    
-    // ボタンのクリックイベントに紙吹雪を追加
-    document.querySelector('.gif-button').addEventListener('click', () => {
-        createConfetti();
-    });
-    
     function createFloatingHearts() {
         console.log("Creating floating hearts..."); // デバッグ用ログ
+
+        // `floating-hearts`クラスを持つコンテナを取得
         const heartContainer = document.querySelector('.floating-hearts');
-    
-        // コンテナが存在しない場合エラーログを出力
+
+        // コンテナが存在しない場合エラーログを出力して終了
         if (!heartContainer) {
             console.error("No container found for floating hearts!");
             return;
         }
-    
-        for (let i = 0; i < 10; i++) { // 一度に生成するハートの数
-            const heart = document.createElement("div");
+
+        // 一度に生成するハートの数
+        const heartCount = 10;
+
+        for (let i = 0; i < heartCount; i++) {
+            // ハートの要素を生成
+            const heart = document.createElement("div"); // ここでheart変数を宣言
             heart.classList.add("floating-heart");
-    
-            // ハートを親コンテナに追加
-            heartContainer.appendChild(heart);
-    
-            // ランダムなサイズ、位置、アニメーション時間などを設定
+            heart.innerText = "❤"; // ハートの文字
+            
+            // ランダムなサイズと位置を設定
             const size = Math.random() * 30 + 20; // 20px〜50pxのサイズ
             heart.style.fontSize = `${size}px`;
             heart.style.left = `${Math.random() * 100}vw`; // 横方向ランダム配置
-            heart.style.animationDuration = `${Math.random() * 5 + 5}s`; // アニメーション時間
-    
-            // 一定時間後にハートを削除
-            setTimeout(() => {
+            heart.style.animationDuration = `${Math.random() * 5 + 5}s`; // アニメーション時間5〜10秒
+
+            // コンテナにハートを追加
+            heartContainer.appendChild(heart);
+
+            // アニメーション終了時に自動削除
+            heart.addEventListener("animationend", () => {
                 heart.remove();
-            }, 10000); // 10秒後に削除
+            });
         }
     }
-    
 
-    // 封筒をクリックすると開閉
-    envelopeWrapper.addEventListener("click", toggleEnvelope);
+    // イベント設定
+    elements.yayButton.onclick = () => {
+        toggleDisplay(elements.image1, false);
+        toggleDisplay(elements.yayButton, false);
+        toggleDisplay(elements.yeppiButton, false);
+        elements.envelopeWrapper.classList.add("show");
+        setTimeout(() => elements.envelopeWrapper.addEventListener("click", toggleEnvelope), 500);
+    };
 
-    // ボタンのイベントリスナーを設定
-    yayButton.onclick = showEnvelope;
-    yeppiButton.onclick = showChocolate;
-    backButtonE.addEventListener("click", goBackFromEnvelope);
-    backButtonR.addEventListener("click", goBackFromRamen);
-    // 戻るボタンにイベントリスナーを追加
-    backButtonC.addEventListener("click", goBackFromChocolate);
+    elements.yeppiButton.onclick = () => {
+        toggleDisplay(elements.image1, false);
+        toggleDisplay(elements.yayButton, false);
+        toggleDisplay(elements.yeppiButton, false);
+        elements.chocolateWrapper.classList.add("show");
+    };
+
+    elements.gifButton.onclick = () => {
+        elements.ramenWrapper.classList.add("show");
+        elements.chocolateWrapper.classList.remove("show");
+    };
+
+    elements.backButtonE.onclick = (event) => {
+        event.stopPropagation(); // クリックイベントの伝播を防ぐ
+        // 封筒を閉じて戻る
+        goBack(elements.envelopeWrapper, [elements.yayButton, elements.yeppiButton]);
+    };
+
+    elements.backButtonC.onclick = () => 
+        goBack(elements.chocolateWrapper, [elements.yayButton, elements.yeppiButton]);
+
+    elements.backButtonR.onclick = () => {
+        elements.ramenWrapper.classList.remove("show");
+        elements.chocolateWrapper.classList.add("show");
+    };
+
 });

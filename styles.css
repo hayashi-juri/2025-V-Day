@@ -29,12 +29,11 @@ body {
     line-height: 1.5;
 }
 
-
+/* 質問用 */
 .ask-wrapper {
     position: absolute;
     top: 50%; /* 垂直方向の中央 */
     left: 50%; /* 水平方向の中央 */
-    z-index: 1;
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
@@ -42,6 +41,7 @@ body {
     gap: 10px; /* ボタン間の余白 */
     overflow: hidden;
     flex-direction: column;
+    z-index: 1;
 }
 
 .btn {
@@ -62,11 +62,11 @@ body {
     transform: scale(1.1);
 }
 
-
+/* 封筒表示 */
 .envelope-wrapper {
     position: absolute;
-    top: 50%; /* 垂直方向の中央 */
-    left: 50%; /* 水平方向の中央 */
+    top: 50%;
+    left: 50%;
     height: 150px;
     width: 220px;
     display: flex;
@@ -113,11 +113,11 @@ body {
     position: absolute;
     height: 0;
     width: 0;
-    top: -73px;
-    left: 0;
     border-left: 110px solid transparent;
     border-right: 110px solid transparent;
     border-bottom: 75px solid #dcc6b9;
+    top: -73px;
+    left: 0;
     transform-origin: bottom;
     border-radius: 5px;
     transform: rotateX(180deg);
@@ -136,7 +136,7 @@ body {
 
 .back-button-envelope {
     position: relative;
-    top: 80px;
+    top: 90px;
     left: 50px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     z-index: 5;
@@ -238,20 +238,16 @@ body {
     opacity: 1;
 }
 
-.chocolate-wrapper {
+.chocolate-wrapper, .ramen-wrapper {
     position: absolute;
-    top: 50%; /* 垂直方向の中央 */
-    left: 50%; /* 水平方向の中央 */
-    height: auto;
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%) scale(0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 1;
     transition: transform 0.8s;
-    flex-direction: column;
 }
 
 .chocolate {
@@ -269,7 +265,6 @@ body {
     all: unset; /* ボタンのデフォルトのスタイルをリセット */
     display: inline-block;
     cursor: pointer;
-    border-radius: 10px; /* 必要なら角を丸める */
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -295,21 +290,6 @@ body {
     transform: scale(1.1); /* ホバー時に少し拡大 */
 }
 
-.ramen-wrapper {
-    position: absolute;
-    top: 50%; /* 垂直方向の中央 */
-    left: 50%; /* 水平方向の中央 */
-    height: 150px;
-    width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    border-radius: 5px;
-    transform: translate(-50%, -50%) scale(0);
-    z-index: 1;
-    transition: transform 0.8s;
-    flex-direction: column;
-}
 
 .ramen-wrapper.show {
     transform: translate(-50%, -50%) scale(1);
@@ -318,7 +298,7 @@ body {
 .back-button-ramen {
     position: relative;
     top: 30px;
-    left: 50px;
+    left: 30px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     z-index: 5;
 }
@@ -350,16 +330,6 @@ body {
     margin-bottom: 15px;
 }
 
-.confetti {
-    position: absolute;
-    width: 8px; /* 初期サイズ */
-    height: 8px; /* 初期サイズ */
-    background-color: red; /* 初期色 */
-    border-radius: 50%; /* 丸い形状 */
-    pointer-events: none; /* クリックを無効化 */
-    z-index: 10; /* 他の要素よりも前に配置 */
-}
-
 .floating-hearts {
     position: fixed;
     top: 0;
@@ -374,8 +344,20 @@ body {
 .floating-heart {
     position: absolute;
     font-size: 20px; /* デフォルトサイズ */
-    color: #ff69b4; /* ピンク色 */
+    color: #CA3C3C;
     opacity: 0.8; /* 半透明 */
-    animation: floatUp 
+    animation: floatUp 5s ease-in infinite; /* アニメーション */
 }
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) scale(0.5);
+        opacity: 0;
+    }
+}
+
 
