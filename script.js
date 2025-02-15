@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // 要素の取得
+    // get elementd
     const elements = {
         yayButton: document.querySelector(".yay"),
         yeppiButton: document.querySelector(".yeppi"),
@@ -21,12 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createFloatingHearts();
 
-    // 要素の表示/非表示を切り替える関数
+    // show/hide
     const toggleDisplay = (element, show) => {
         element.style.display = show ? "inline-block" : "none";
     };
 
-    // 封筒を開く
+    // open envelope
     const openEnvelope = () => {
         elements.envelopeWrapper.classList.add("open");
         elements.heartElement.style.opacity = "0";
@@ -37,38 +37,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
             if (elements.letter) {
-                elements.letter.style.opacity = "1"; // 手紙を表示
-                elements.letter.style.bottom = "150px"; // 手紙を上に移動
+                elements.letter.style.opacity = "1"; // show letter
+                elements.letter.style.bottom = "150px"; // move letter
             }
         }, 1000);
     };
 
-    // 封筒を閉じる
+    // close envelope
     const closeEnvelope = () => {
         elements.envelopeWrapper.classList.remove("open");
         elements.heartElement.style.opacity = "1";
 
         setTimeout(() => {
             elements.heartElement.style.opacity = "1";
-            elements.letter.style.opacity = "0"; // 手紙を非表示
+            elements.letter.style.opacity = "0"; // hide envelope
             elements.letter.style.bottom = "0";
         }, 500);
     };
 
-    // 封筒の開閉を切り替え
+    // lid open/close
     const toggleEnvelope = () => {
         isOpened = !isOpened;
         isOpened ? openEnvelope() : closeEnvelope();
     };
 
-    // 戻るボタンがクリックされたときの処理
+    // back btn
     const goBack = (wrapperToHide, wrappersToShow = []) => {
         wrapperToHide.classList.remove("show");
         wrappersToShow.forEach(wrapper => toggleDisplay(wrapper, true));
         toggleDisplay(elements.image1, true);
     };
 
-    // ハートを生成する関数
+    // hearts function
     const createHearts = () => {
         for (let i = 0; i < 100; i++) {
             const heart = document.createElement("div");
@@ -101,43 +101,36 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     function createFloatingHearts() {
-        console.log("Creating floating hearts..."); // デバッグ用ログ
+        console.log("Creating floating hearts...");
 
-        // `floating-hearts`クラスを持つコンテナを取得
         const heartContainer = document.querySelector('.floating-hearts');
 
-        // コンテナが存在しない場合エラーログを出力して終了
         if (!heartContainer) {
             console.error("No container found for floating hearts!");
             return;
         }
 
-        // 一度に生成するハートの数
         const heartCount = 10;
 
         for (let i = 0; i < heartCount; i++) {
-            // ハートの要素を生成
-            const heart = document.createElement("div"); // ここでheart変数を宣言
-            heart.classList.add("floating-heart");
-            heart.innerText = "❤"; // ハートの文字
-            
-            // ランダムなサイズと位置を設定
-            const size = Math.random() * 30 + 20; // 20px〜50pxのサイズ
-            heart.style.fontSize = `${size}px`;
-            heart.style.left = `${Math.random() * 100}vw`; // 横方向ランダム配置
-            heart.style.animationDuration = `${Math.random() * 5 + 5}s`; // アニメーション時間5〜10秒
 
-            // コンテナにハートを追加
+            const heart = document.createElement("div");
+            heart.classList.add("floating-heart");
+            heart.innerText = "❤";
+
+            const size = Math.random() * 30 + 20;
+            heart.style.fontSize = `${size}px`;
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 5 + 5}s`;
+
             heartContainer.appendChild(heart);
 
-            // アニメーション終了時に自動削除
             heart.addEventListener("animationend", () => {
                 heart.remove();
             });
         }
     }
 
-    // イベント設定
     elements.yayButton.onclick = () => {
         toggleDisplay(elements.image1, false);
         toggleDisplay(elements.yayButton, false);
@@ -159,8 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     elements.backButtonE.onclick = (event) => {
-        event.stopPropagation(); // クリックイベントの伝播を防ぐ
-        // 封筒を閉じて戻る
+        event.stopPropagation();
         goBack(elements.envelopeWrapper, [elements.yayButton, elements.yeppiButton]);
     };
 

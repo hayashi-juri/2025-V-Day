@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Itim&family=Lobster&family=Overlock:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Shrikhand&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Lobster&family=Shrikhand&display=swap');
 
 * {
     margin: 0;
@@ -17,28 +17,27 @@ body {
 }
 
 .background-text {
-    position: fixed; /* スクロールしても背景に固定 */
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 80px; /* 文字サイズ */
-    font-family: "Lobster", serif;
-    color: rgba(202, 60, 60, 0.1); /* 背景文字として淡い色 */
-    z-index: -1; /* 他の要素の背面に配置 */
-    pointer-events: none; /* クリックイベントを無効化 */
-    line-height: 1.5;
+    font-size: 60px;
+    color: rgba(202, 60, 60, 0.1);
+    z-index: -1;
+    pointer-events: none;
+    line-height: 2.5;
 }
 
-/* 質問用 */
+/* for question */
 .ask-wrapper {
     position: absolute;
-    top: 50%; /* 垂直方向の中央 */
-    left: 50%; /* 水平方向の中央 */
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* ボタン間の余白 */
+    gap: 10px; /* gap between button */
     overflow: hidden;
     flex-direction: column;
     z-index: 1;
@@ -62,7 +61,7 @@ body {
     transform: scale(1.1);
 }
 
-/* 封筒表示 */
+/* envelope */
 .envelope-wrapper {
     position: absolute;
     top: 50%;
@@ -80,7 +79,7 @@ body {
     transition: transform 0.8s;
 }
 
-/* 封筒本体 */
+/* envelope body */
 .envelope {
     position: absolute;
     height: 100%;
@@ -95,7 +94,7 @@ body {
     z-index: 2;
 }
 
-/* ハート */
+/* heart seal */
 .heart {
     position: absolute;
     top: 50%;
@@ -108,7 +107,7 @@ body {
     transition: opacity 0.8s ease;
 }
 
-/* 蓋の部分（1つの要素で管理） */
+/* envelope lid */
 .lid {
     position: absolute;
     height: 0;
@@ -127,7 +126,7 @@ body {
 
 
 .envelope-wrapper.open .lid {
-    transform: rotateX(0deg); /* 蓋を開く動作 */
+    transform: rotateX(0deg);
 }
 
 .envelope-wrapper.show {
@@ -152,7 +151,7 @@ body {
 }
 
 
-/* 手紙 */
+/* letter */
 .letter {
     position: absolute;
     bottom: 0;
@@ -174,19 +173,9 @@ body {
 .lobster-regular {
     font-family: "Lobster", serif;
     font-weight: 300;
-    margin-bottom: 10px; /* 下に余白を追加 */
-    font-size: 20px; /* 必要に応じてサイズ調整 */
+    margin-bottom: 10px;
+    font-size: 20px;
     text-align: center;
-}
-
-.sour-gummy {
-  font-family: "Sour Gummy", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
-  margin-left: 5px;
-  margin-right: 5px;
 }
 
 .shrikhand-regular {
@@ -195,11 +184,6 @@ body {
     font-style: normal;
   }
 
-  .overlock-regular {
-    font-family: "Overlock", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
 
   .itim-regular {
     font-family: "Itim", serif;
@@ -224,9 +208,9 @@ body {
 
 .text-1 {
     font-size: 13px;
-    text-align: center;
-    margin-left: 5px;
-    margin-right: 5px;
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .p span {
@@ -262,7 +246,7 @@ body {
 }
 
 .gif-button {
-    all: unset; /* ボタンのデフォルトのスタイルをリセット */
+    all: unset;
     display: inline-block;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -287,7 +271,7 @@ body {
 
 .back-button-chocolate:hover {
     background-color: #A82E2E;
-    transform: scale(1.1); /* ホバー時に少し拡大 */
+    transform: scale(1.1);
 }
 
 
@@ -303,25 +287,30 @@ body {
     z-index: 5;
 }
 
+.text-3 {
+    font-size: 20px;
+    text-align: center;
+}
+
 .back-button-ramen:hover {
     background-color: #A82E2E;
-    transform: scale(1.1); /* ホバー時に少し拡大 */
+    transform: scale(1.1);
 }
 
 
 .gif {
     display: block;
-    margin: 0 auto; /* 中央揃え */
-    height: auto; /* アスペクト比を維持 */
+    margin: 0 auto;
+    height: auto;
 }
 
 .image-1 {
-    width: 200px; /* 必要に応じて変更 */
+    width: 200px;
     margin-bottom: 20px;
 }
 
 .image-2 {
-    width: 175px; /* 必要に応じて変更 */
+    width: 175px;
     margin-bottom: 15px;
 }
 
@@ -336,17 +325,17 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none; /* クリックを無効化 */
-    z-index: -1; /* 背景に配置 */
+    pointer-events: none;
+    z-index: -1;
     overflow: hidden;
 }
 
 .floating-heart {
     position: absolute;
-    font-size: 20px; /* デフォルトサイズ */
+    font-size: 20px;
     color: #CA3C3C;
-    opacity: 0.8; /* 半透明 */
-    animation: floatUp 5s ease-in infinite; /* アニメーション */
+    opacity: 0.8;
+    animation: floatUp 5s ease-in infinite;
 }
 
 @keyframes floatUp {
